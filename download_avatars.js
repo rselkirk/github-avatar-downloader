@@ -3,11 +3,20 @@ const https = require('https');
 const fs = require('fs');
 const key = require('./gitkey');
 
+
+if (process.argv[2] === undefined || process.argv[3] === undefined) {
+  console.log("Must supply repoOwner and repoName!");
+  return;
+}
+
+
 console.log('Welcome to the GitHub Avatar Downloader!');
+
+var repoOwner = process.argv[2];
+var repoName = process.argv[3];
 
 var GITHUB_USER = key.username;
 var GITHUB_TOKEN = key.key;
-
 
 
 function getRepoContributors(repoOwner, repoName, cb) {
@@ -91,34 +100,3 @@ function downloadImagesByURL(avatars, filePath) {
     .pipe(fs.createWriteStream(file));
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
