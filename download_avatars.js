@@ -20,21 +20,21 @@ var GITHUB_TOKEN = key.key;
 
 
 function getRepoContributors(repoOwner, repoName, cb) {
-    var requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
-    var options ={
-      headers: {
-        'User-agent': 'rselkirk'
-      },
-      uri: requestURL
+  var requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
+  var options ={
+    headers: {
+      'User-agent': 'rselkirk'
+    },
+    uri: requestURL
     };
-   request
+  request
     .get(options)
     .on('error', function (err) {
       cb(err);
     })
     .on('response', function (response) {
-
       console.log('Response Status Message: ', response.statusMessage, response.statusCode);
+
       response.setEncoding('utf8');
       var body = "";
 
@@ -59,7 +59,6 @@ function getRepoContributors(repoOwner, repoName, cb) {
     })
 }
 
-//callback function??
 
 getRepoContributors("jquery", "jquery", function(err, data) {
   if(err) {
@@ -90,13 +89,13 @@ function downloadImagesByURL(avatars, filePath) {
     };
 
     request
-    .get(options)
-    .on('error', function (err) {
-      console.log('error');
-    })
-    .on('response', function (response) {
-      console.log('Response Status - Image downloaded -'+ response.statusMessage);
-    })
-    .pipe(fs.createWriteStream(file));
-    }
+      .get(options)
+      .on('error', function (err) {
+        console.log('error');
+      })
+      .on('response', function (response) {
+        console.log('Response Status - Image downloaded -'+ response.statusMessage);
+      })
+      .pipe(fs.createWriteStream(file));
+      }
 }
