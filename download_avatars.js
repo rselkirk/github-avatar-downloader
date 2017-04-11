@@ -42,7 +42,6 @@ function getRepoContributors(repoOwner, repoName, cb) {
         if(response.statusCode !== 200) {
           return cb(new Error(data.message));
         }
-
         //console.log('DONE');
         cb(null, data);
       });
@@ -56,6 +55,9 @@ getRepoContributors("jquery", "jquery", function(err, data) {
     console.error('ERROR:', err.message);
     return;
   }
-  console.log('We have data:', data);
-  // do stuff with data
+  if(data) {
+    for (i = 0; i < data.length; i++) {
+      console.log(data[i].avatar_url);
+    }
+  }
 });
