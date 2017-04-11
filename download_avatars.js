@@ -3,12 +3,11 @@ const https = require('https');
 const fs = require('fs');
 const key = require('./gitkey');
 
-
+// checks for command line entry of required arguments
 if (process.argv[2] === undefined || process.argv[3] === undefined) {
   console.log("Must supply repoOwner and repoName!");
   return;
 }
-
 
 console.log('Welcome to the GitHub Avatar Downloader!');
 
@@ -18,7 +17,7 @@ var repoName = process.argv[3];
 var GITHUB_USER = key.username;
 var GITHUB_TOKEN = key.key;
 
-
+// gets file list of avatar URLs for git users of a given repo
 function getRepoContributors(repoOwner, repoName, cb) {
   var requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
   var options ={
@@ -59,7 +58,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
     })
 }
 
-
+// if there is data for the avatar url list, it will be stored in an array
 getRepoContributors("jquery", "jquery", function(err, data) {
   if(err) {
     console.error('ERROR:', err.message);
@@ -74,6 +73,7 @@ getRepoContributors("jquery", "jquery", function(err, data) {
   }
 });
 
+// downloads images by url from avatar array and saves in unique file name
 function downloadImagesByURL(avatars, filePath) {
   var options;
   var file;
